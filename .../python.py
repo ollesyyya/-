@@ -1,33 +1,39 @@
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n-1):
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-def insertion_sort(array):
-    for i in range(1, len(array)):
-        key = array[i]
-        j = i - 1
-        while j >= 0 and array[j] > key:
-            array[j + 1] = array[j]
-            j = j - 1
-        array[j + 1] = key
-def linear_search(arr, target):
-    for i in range(len(arr)):
-        if arr[i] == target:
-            return i
-    return -1
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n-1):
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-def insertion_sort(array):
-    for i in range(1, len(array)):
-        key = array[i]
-        j = i - 1
-        while j >= 0 and array[j] > key:
-            array[j + 1] = array[j]
-            j = j - 1
-        array[j + 1] = key
+def quick_sort(arr):
+    """
+    Функция быстрой сортировки
+    """
+    # Базовый случай: если массив содержит 1 элемент или меньше, он уже отсортирован
+    if len(arr) <= 1:
+        return arr
+    
+    # Выбираем опорный элемент (последний элемент массива)
+    pivot = arr[-1]
+    
+    # Создаем три списка: для элементов меньше опорного, равных ему и больших
+    left = []    # Элементы меньше опорного
+    middle = []  # Элементы равные опорному  
+    right = []   # Элементы больше опорного
+    
+    # Распределяем элементы по трем спискам
+    for x in arr:
+        if x < pivot:
+            left.append(x)      # Добавляем в левую часть
+        elif x == pivot:
+            middle.append(x)    # Добавляем в среднюю часть
+        else:
+            right.append(x)     # Добавляем в правую часть
+    
+    # Рекурсивно сортируем левую и правую части, затем объединяем
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Пример использования
+if __name__ == "__main__":
+    # Тестовый массив
+    test_array = [64, 34, 25, 12, 22, 11, 90]
+    print("Исходный массив:", test_array)
+    
+    # Вызываем функцию сортировки
+    sorted_array = quick_sort(test_array)
+    
+    print("Отсортированный массив:", sorted_array)
+    
