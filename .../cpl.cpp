@@ -23,4 +23,19 @@ void selectionSort(vector<int>& arr) {
     }
 }
 
-int main() {
+int main() {// Тестовый массив
+    vector<int> testArray = {64, 25, 12, 22, 11};
+    
+    cout << "Исходный массив: ";
+    for (int num : testArray) cout << num << " ";
+    cout << endl;
+    
+    // Сортируем массив
+    selectionSort(testArray);
+    
+    cout << "Отсортированный массив: ";
+    for (int num : testArray) cout << num << " ";
+    cout << endl;
+    
+    return 0;
+}
