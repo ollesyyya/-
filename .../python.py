@@ -1,105 +1,61 @@
-def quick_sort(arr):
-    """
-    Функция быстрой сортировки
-    """
-    # Базовый случай: если массив содержит 1 элемент или меньше, он уже отсортирован
-    if len(arr) <= 1:
-        return arr
+# БИНАРНЫЙ ПОИСК 
+# Сложность: O(log n) время, O(1) память
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
     
-    # Выбираем опорный элемент (последний элемент массива)
-    pivot = arr[-1]
-    
-    # Создаем три списка: для элементов меньше опорного, равных ему и больших
-    left = []    # Элементы меньше опорного
-    middle = []  # Элементы равные опорному  
-    right = []   # Элементы больше опорного
-    
-    # Распределяем элементы по трем спискам
-    for x in arr:
-        if x < pivot:
-            left.append(x)      # Добавляем в левую часть
-        elif x == pivot:
-            middle.append(x)    # Добавляем в среднюю часть
+    while left <= right:
+        mid = left + (right - left) // 2
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
         else:
-            right.append(x)     # Добавляем в правую часть
+            right = mid - 1
     
-    # Рекурсивно сортируем левую и правую части, затем объединяем
-    return quick_sort(left) + middle + quick_sort(right)
+    return -1
 
-# Пример использования
-if __name__ == "__main__":
-    # Тестовый массив
-    test_array = [64, 34, 25, 12, 22, 11, 90]
-    print("Исходный массив:", test_array)
+
+# ЛИНЕЙНЫЙ ПОИСК 
+# Сложность: O(n) время, O(1) память
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
+
+
+# СОРТИРОВКА ШЕЛЛА 
+# Сложность: O(n log² n) время, O(1) память
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
     
-    # Вызываем функцию сортировки
-    sorted_array = quick_sort(test_array)
-    
-    print("Отсортированный массив:", sorted_array)
-    
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            
+            arr[j] = temp
+        gap //= 2
+
+
+# СОРТИРОВКА ОБМЕНОМ (пузырьковая)
+# Сложность: O(n²) время, O(1) память
 def bubble_sort(arr):
-    """
-    Функция сортировки пузырьком
-    """
     n = len(arr)
     
-    # Проходим по всем элементам массива
     for i in range(n - 1):
-        # Флаг для оптимизации - если не было обменов, массив отсортирован
         swapped = False
         
-        # Последние i элементов уже на своих местах
         for j in range(0, n - i - 1):
-            # Сравниваем соседние элементы
             if arr[j] > arr[j + 1]:
-                # Если порядок неправильный, меняем местами
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
-                swapped = True  # Устанавливаем флаг обмена
+                swapped = True
         
-        # Если не было обменов, массив отсортирован - выходим
         if not swapped:
             break
-
-# Пример использования
-if name == "main":
-    # Тестовый массив
-    test_array = [64, 34, 25, 12, 22, 11, 90]
-    print("Исходный массив:", test_array)
-    
-    # Вызываем функцию сортировки
-    bubble_sort(test_array)
-    
-    print("Отсортированный массив:", test_array)
-
-def insertion_sort(array):
-    """
-    Функция сортировки вставками
-    """
-    # Начинаем со второго элемента (индекс 1)
-    for i in range(1, len(array)):
-        # Сохраняем текущий элемент для вставки
-        key = array[i]
-        
-        # Начинаем сравнение с предыдущим элементом
-        j = i - 1
-        
-        # Перемещаем элементы, которые больше key, вправо
-        while j >= 0 and array[j] > key:
-            # Сдвигаем элемент вправо
-            array[j + 1] = array[j]
-            # Переходим к следующему элементу слева
-            j = j - 1
-        
-        # Вставляем key на правильную позицию
-        array[j + 1] = key
-
-# Пример использования
-if name == "main":
-    # Тестовый массив
-    array = [12, 11, 13, 5, 6]
-    print("Исходный массив:", array)
-    
-    # Вызываем функцию сортировки
-    insertion_sort(array)
-    
-    print("Отсортированный массив:", array)
