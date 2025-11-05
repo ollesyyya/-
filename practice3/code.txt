@@ -1,0 +1,116 @@
+// python
+def generate_binary_strings(n, current="", result=None):
+    # Инициализация списка результатов при первом вызове
+    if result is None:
+        result = []
+    
+    # БАЗОВЫЙ СЛУЧАЙ: если текущая строка достигла нужной длины n
+    if len(current) == n:
+        result.append(current)  # Добавляем готовую строку в результат
+        return  # Завершаем рекурсию для этой ветки
+    
+    # РЕКУРСИВНЫЙ ПЕРЕХОД 1: добавляем '0' и продолжаем рекурсию
+    # Это левая ветка дерева рекурсии
+    generate_binary_strings(n, current + "0", result)
+    
+    # РЕКУРСИВНЫЙ ПЕРЕХОД 2: добавляем '1' и продолжаем рекурсию  
+    # Это правая ветка дерева рекурсии
+    generate_binary_strings(n, current + "1", result)
+    
+    return result  # Возвращаем все найденные комбинации
+
+# Основная программа
+n = int(input("Введите длину бинарной строки n: "))
+# Вызываем рекурсивную функцию для генерации всех строк
+binary_strings = generate_binary_strings(n)
+
+# Выводим результаты
+print(f"Все бинарные строки длины {n}:")
+for i, s in enumerate(binary_strings):
+    print(f"{i+1}: {s}")  # Нумеруем строки для наглядности
+
+  
+// с++
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Рекурсивная функция генерации бинарных строк
+void generateBinaryStrings(int n, string current, vector<string>& result) {
+    // БАЗОВЫЙ СЛУЧАЙ: если текущая строка достигла длины n
+    if (current.length() == n) {
+        result.push_back(current);  // Сохраняем результат
+        return;  // Выходим из рекурсии
+    }
+    
+    // РЕКУРСИВНЫЙ ПЕРЕХОД 1: добавляем '0' к текущей строке
+    // И рекурсивно генерируем остаток строки
+    generateBinaryStrings(n, current + "0", result);
+    
+    // РЕКУРСИВНЫЙ ПЕРЕХОД 2: добавляем '1' к текущей строке  
+    // И рекурсивно генерируем остаток строки
+    generateBinaryStrings(n, current + "1", result);
+}
+
+int main() {
+    int n;
+    cout << "Введите длину бинарной строки n: ";
+    cin >> n;
+    
+    vector<string> result;  // Вектор для хранения всех бинарных строк
+    
+    // Запускаем рекурсивную генерацию с пустой начальной строкой
+    generateBinaryStrings(n, "", result);
+    
+    // Выводим все полученные строки
+    cout << "Все бинарные строки длины " << n << ":" << endl;
+    for (int i = 0; i < result.size(); i++) {
+        cout << i+1 << ": " << result[i] << endl;  // Нумеруем вывод
+    }
+    
+    return 0;
+}
+
+
+// java
+import java.util.*;
+
+public class BinaryStrings {
+    // Рекурсивный метод для генерации всех бинарных строк длины n
+    public static void generateBinaryStrings(int n, String current, List<String> result) {
+        // БАЗОВЫЙ СЛУЧАЙ: если текущая строка достигла нужной длины
+        if (current.length() == n) {
+            result.add(current);  // Добавляем в список результатов
+            return;  // Завершаем эту ветку рекурсии
+        }
+        
+        // РЕКУРСИВНЫЙ ПЕРЕХОД 1: добавляем '0' и продолжаем рекурсию
+        // Это соответствует левой ветке в дереве рекурсии
+        generateBinaryStrings(n, current + "0", result);
+        
+        // РЕКУРСИВНЫЙ ПЕРЕХОД 2: добавляем '1' и продолжаем рекурсию
+        // Это соответствует правой ветке в дереве рекурсии  
+        generateBinaryStrings(n, current + "1", result);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите длину бинарной строки n: ");
+        int n = scanner.nextInt();
+        
+        // Список для хранения всех сгенерированных строк
+        List<String> result = new ArrayList<>();
+        
+        // Запускаем рекурсивную генерацию с пустой строки
+        generateBinaryStrings(n, "", result);
+        
+        // Выводим результаты с нумерацией
+        System.out.println("Все бинарные строки длины " + n + ":");
+        for (int i = 0; i < result.size(); i++) {
+            System.out.println((i+1) + ": " + result.get(i));
+        }
+        
+        scanner.close();
+    }
+}
